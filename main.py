@@ -23,8 +23,36 @@ def ver_gastos(gastos):
     for gasto in gastos:
         print(f"{gasto['descripcion']} ({gasto['categoria']}) : ${gasto['monto']}")
 
-print("Gastos del negocio:")
+# Busca todos los gastos de una categoria, sin importar mayusculas o minusculas.
+def buscar_por_categoria(gastos, categoria_buscada):
+    categoria_normalizada = categoria_buscada.lower()
+    resultado = []
+
+    for gasto in gastos:
+        if gasto["categoria"].lower() == categoria_normalizada:
+            resultado.append(gasto)
+
+    return resultado
+
+# Suma el monto de todos los gastos de una categoria, sin importar mayusculas o minusculas.
+def total_por_categoria(gastos, categoria_busqueda):
+    categoria_normalizada = categoria_busqueda.lower()
+    total = 0
+
+    for gasto in gastos:
+        if gasto["categoria"].lower() == categoria_normalizada:
+            total += gasto["monto"]
+
+    return total
+
+print("\n-----Gastos del negocio-----")
 ver_gastos(gastos_negocio)
 agregar_gasto(gastos_negocio, "Compra de tijeras", 800.00, "Insumos")
-print("\nGastos del negocio despues de agregar un nuevo gasto:")
+print("\n-----Gastos del negocio despues de agregar un nuevo gasto-----")
 ver_gastos(gastos_negocio)
+
+print("\n-----Resultados de busqueda por categoria-----")
+print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
+
+print("\n-----Resultados del Total por categoria-----")
+print(total_por_categoria(gastos_negocio, "insumos"))
