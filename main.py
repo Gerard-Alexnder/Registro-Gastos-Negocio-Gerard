@@ -45,23 +45,27 @@ def total_por_categoria(gastos, categoria_busqueda):
 
     return total
 
-print("\n-----Gastos del negocio-----")
-ver_gastos(gastos_negocio)
-agregar_gasto(gastos_negocio, "Compra de tijeras", 800.00, "Insumos")
-print("\n-----Gastos del negocio despues de agregar un nuevo gasto-----")
-ver_gastos(gastos_negocio)
+# print("\n-----Gastos del negocio-----")
+# ver_gastos(gastos_negocio)
+# agregar_gasto(gastos_negocio, "Compra de tijeras", 800.00, "Insumos")
+# print("\n-----Gastos del negocio despues de agregar un nuevo gasto-----")
+# ver_gastos(gastos_negocio)
 
-print("\n-----Resultados de busqueda por categoria-----")
-print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
+# print("\n-----Resultados de busqueda por categoria-----")
+# print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
 
-print("\n-----Resultados del Total por categoria-----")
-print(total_por_categoria(gastos_negocio, "insumos"))
+# print("\n-----Resultados del Total por categoria-----")
+# print(total_por_categoria(gastos_negocio, "insumos"))
 
 while True:
     print("\nMenu:")
     print("0. Salir")
+    print("1. Ver todos los gastos")
+    print("2. Agregar un gasto nuevo")
     opcion = input("Ingrese una opción: ")
 
     if opcion == "0":
         print("Hasta luego!")
         break
+    elif opcion == "1":
+        ver_gastos(gastos_negocio)
