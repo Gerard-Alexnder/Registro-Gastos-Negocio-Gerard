@@ -11,39 +11,44 @@ gastos_negocio = [
 # for gasto in gastos_negocio:
 #     print(f"Descripcion: {gasto['descripcion']}, Monto: {gasto['monto']}, Categoria: {gasto['categoria']}")
 
-#Funcion que agrega un gasto al negocio  usa como parametroos los gatos, la descripcion, el monto y categoria del gasto. 
-def agregar_gasto(gastos, descripcion, monto, categoria):
+class GestorGastos:
+    def __init__(self, gastos):
+        self.gastos = gastos
 
-    nuevo_gasto = {"descripcion": descripcion, "monto": monto, "categoria": categoria}
-    gastos.append(nuevo_gasto)
-    return nuevo_gasto
+    def ver_gastos(self):
+        for gasto in self.gastos:
+            print(f"{gasto['descripcion']} ({gasto['categoria']}) : ${gasto['monto']}")
 
-#funcion que muestra los gastos del negocio, recibe como parametro la lista de diccionario gastos y recorre la lista mostrando la descripcion, categoria y monto de cada gasto.
-def ver_gastos(gastos):
-    for gasto in gastos:
-        print(f"{gasto['descripcion']} ({gasto['categoria']}) : ${gasto['monto']}")
+    def buscar_por_categoria(self, categoria_buscada):
+        categoria_normalizada = categoria_buscada.lower()
+        resultado = []
+    
+        for gasto in self.gastos:
+            if gasto["categoria"].lower() == categoria_normalizada:
+                resultado.append(gasto)
+    
+        return resultado
 
-# Busca todos los gastos de una categoria, sin importar mayusculas o minusculas.
-def buscar_por_categoria(gastos, categoria_buscada):
-    categoria_normalizada = categoria_buscada.lower()
-    resultado = []
+    def total_por_categoria(self, categoria_busqueda):
+        categoria_normalizada = categoria_busqueda.lower()
+        total = 0
 
-    for gasto in gastos:
-        if gasto["categoria"].lower() == categoria_normalizada:
-            resultado.append(gasto)
+        for gasto in self.gastos:
+            if gasto["categoria"].lower() == categoria_normalizada:
+                total += gasto["monto"]
 
-    return resultado
+        return total
 
-# Suma el monto de todos los gastos de una categoria, sin importar mayusculas o minusculas.
-def total_por_categoria(gastos, categoria_busqueda):
-    categoria_normalizada = categoria_busqueda.lower()
-    total = 0
+    def agregar_gasto(self, descripcion, monto, categoria):
+        nuevo_gasto = {"descripcion": descripcion, "monto": monto, "categoria": categoria}
+        self.gastos.append(nuevo_gasto)
+        return nuevo_gasto
 
-    for gasto in gastos:
-        if gasto["categoria"].lower() == categoria_normalizada:
-            total += gasto["monto"]
 
-    return total
+
+   
+
+
 
 # print("\n-----Gastos del negocio-----")
 # ver_gastos(gastos_negocio)
@@ -56,6 +61,8 @@ def total_por_categoria(gastos, categoria_busqueda):
 
 # print("\n-----Resultados del Total por categoria-----")
 # print(total_por_categoria(gastos_negocio, "insumos"))
+
+gestor_gastos = GestorGastos(gastos_negocio)
 
 while True:
     print("\nMenu:")
@@ -70,7 +77,7 @@ while True:
         print("Hasta luego!")
         break
     elif opcion == "1":
-        ver_gastos(gastos_negocio)
+        gestor_gastos.ver_gastos()
     elif opcion == "2":
         descripcion = input("Ingrese la descripción: ")
         try:
@@ -79,10 +86,10 @@ while True:
             print("El dato introducido es invalido. Inserte un monto valido")
             continue
         categoria = input("Ingrese la categoría: ")
-        agregar_gasto(gastos_negocio, descripcion, monto, categoria)
+        gestor_gastos.agregar_gasto(descripcion, monto, categoria)
     elif opcion == "3":
         categoria = input("Ingrese la categoría a buscar: ")
-        resultados = buscar_por_categoria(gastos_negocio, categoria)
+        resultados = gestor_gastos.buscar_por_categoria(categoria)
 
         if not resultados:
             print(f"No se encontraron gastos en la categoría '{categoria}'.")
@@ -91,5 +98,5 @@ while True:
                 print(f"{gasto['descripcion']} ({gasto['categoria']}) : ${gasto['monto']}")
     elif opcion == "4":
         categoria = input("Ingrese la categoría para ver el total: ")
-        total = total_por_categoria(gastos_negocio, categoria)
+        total = gestor_gastos.total_por_categoria(categoria)
         print(f"El total gastado en la categoría '{categoria}' es: ${total:,.2f}")
