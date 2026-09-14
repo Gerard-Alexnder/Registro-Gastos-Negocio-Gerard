@@ -39,9 +39,9 @@ class GestorGastos:
 
         return total
 
-    def agregar_gasto(self, descripcion, monto_texto, categoria):
+    def agregar_gasto(self, descripcion, monto, categoria):
         try:
-            monto = float(monto_texto)
+            monto = float(monto)
         except ValueError:
             print("El monto debe ser un numero. Gasto no agregado.")
             return None
