@@ -56,3 +56,12 @@ print(buscar_por_categoria(gastos_negocio, "INSUMOS"))
 
 print("\n-----Resultados del Total por categoria-----")
 print(total_por_categoria(gastos_negocio, "insumos"))
+
+while True:
+    print("\nMenu:")
+    print("0. Salir")
+    opcion = input("Ingrese una opción: ")
+
+    if opcion == "0":
+        print("Hasta luego!")
+        break
