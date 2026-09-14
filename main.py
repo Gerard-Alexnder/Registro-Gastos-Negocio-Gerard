@@ -69,3 +69,8 @@ while True:
         break
     elif opcion == "1":
         ver_gastos(gastos_negocio)
+    elif opcion == "2":
+        descripcion = input("Ingrese la descripción: ")
+        monto = input("Ingrese el monto: ")
+        categoria = input("Ingrese la categoría: ")
+        agregar_gasto(gastos_negocio, descripcion, monto, categoria)
