@@ -39,7 +39,13 @@ class GestorGastos:
 
         return total
 
-    def agregar_gasto(self, descripcion, monto, categoria):
+    def agregar_gasto(self, descripcion, monto_texto, categoria):
+        try:
+            monto = float(monto_texto)
+        except ValueError:
+            print("El monto debe ser un numero. Gasto no agregado.")
+            return None
+
         nuevo_gasto = {"descripcion": descripcion, "monto": monto, "categoria": categoria}
         self.gastos.append(nuevo_gasto)
         return nuevo_gasto
@@ -80,13 +86,9 @@ while True:
         gestor_gastos.ver_gastos()
     elif opcion == "2":
         descripcion = input("Ingrese la descripción: ")
-        try:
-            monto = float(input("Ingrese el monto: "))
-        except ValueError:
-            print("El dato introducido es invalido. Inserte un monto valido")
-            continue
+        monto_texto = input("Ingrese el monto: ")
         categoria = input("Ingrese la categoría: ")
-        gestor_gastos.agregar_gasto(descripcion, monto, categoria)
+        gestor_gastos.agregar_gasto(descripcion, monto_texto, categoria)
     elif opcion == "3":
         categoria = input("Ingrese la categoría a buscar: ")
         resultados = gestor_gastos.buscar_por_categoria(categoria)
