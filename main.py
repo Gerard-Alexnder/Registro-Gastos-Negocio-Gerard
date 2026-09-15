@@ -39,6 +39,20 @@ class GestorGastos:
 
         return total
 
+    def categoria_mas_costosa(self):
+        totales_por_categoria = {}
+
+        for gasto in self.gastos:
+            categoria = gasto["categoria"]
+            totales_por_categoria[categoria] = (
+                totales_por_categoria.get(categoria, 0) + gasto["monto"]
+            )
+
+        if not totales_por_categoria:
+            return None
+
+        return max(totales_por_categoria, key=totales_por_categoria.get)
+
     def agregar_gasto(self, descripcion, monto, categoria):
         try:
             monto = float(monto)
